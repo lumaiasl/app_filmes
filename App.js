@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context"
 
 import api from "./sevices/api";
+import filmes from './filmes'
 
 export default function App()
 {
@@ -20,7 +21,11 @@ export default function App()
 
   return(
     <SafeAreaView style={styles.container}>
-      <Text style={styles.text}>App legal</Text>
+      <FlatList
+        data={filmes}
+        keyExtractor={ item => String(item.id) }
+        renderItem={({ item }) => <Filmes data={item} /> }
+      />
     </SafeAreaView>
   );
 }
