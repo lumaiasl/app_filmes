@@ -1,7 +1,9 @@
-import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Modal } from 'react-native';
+import React, {useState} from "react";
+import { View, Text, StyleSheet, TouchableOpacity, Modal, Image } from 'react-native';
 
-export default function filmes({ data }){
+import Detalhes from "../modal";
+
+export default function InfoFilmes({ data }){
 const [visibleModal, setVisibleModal] = useState(false);
 
     return(
@@ -14,14 +16,14 @@ const [visibleModal, setVisibleModal] = useState(false);
                     style={styles.capa}
                 />
                 <View style={styles.areaBotao}>
-                    <TouchableOpacity style={styles.botao}>
+                    <TouchableOpacity style={styles.botao} onPress={() => setVisibleModal(true)}>
                         <Text style={styles.botaoTexto}>LEIA MAIS</Text>
                     </TouchableOpacity>
                 </View>
             </View>
 
             <Modal transparent={true} animationType="slide" visible={visibleModal}>
-                <Text></Text>
+                <Detalhes filme={data} voltar={() => setVisibleModal(false)}/>
             </Modal>
         </View>
     )
@@ -29,12 +31,13 @@ const [visibleModal, setVisibleModal] = useState(false);
 
 const styles = StyleSheet.create({
     card:{
-        backgroundColor: '#FFF',
+        backgroundColor: '#fff',
         margin: 15,
         elevation: 2,
     },
     capa:{
-        height: 32,
+        height: 360,
+        width: 360,
         zIndex: 2,
     },
     titulo:{
