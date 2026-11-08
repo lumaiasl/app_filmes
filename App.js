@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Text, FlatList } from "react-native";
+import { View, StyleSheet, Text, FlatList, ActivityIndicator } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context"
 
 import api from "./sevices/api";
@@ -16,13 +16,21 @@ export default function App()
       const response = await api.get('r-api/?api=filmes');
 
       setFilmes(response.data); 
+      setLoading(false);
     }
 
     loadFilmes();
 
   }, []);
 
-  return(
+  if(loading){
+    return(
+      <View style={{ alignItems: 'center', justifyContent: 'center' , flex:1 }}>
+        <ActivityIndicator color="#121212" size={45} />
+      </View>
+    )
+  } else {
+    return(
     <SafeAreaView style={styles.container}>
       <FlatList
         data={filmes}
@@ -31,6 +39,7 @@ export default function App()
       />
     </SafeAreaView>
   );
+  }
 }
 
 const styles = StyleSheet.create({
